@@ -15,6 +15,7 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
     return (
         <html lang="en" className={leagueGothic.className}>
+        <link rel="icon" href="/vinyl-favicon.png" sizes="any"/>
         <body className="song-1">{children}</body>
         </html>
     );
