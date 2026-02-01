@@ -1,0 +1,243 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  background:
+          radial-gradient(circle at 30% 10%, rgba(255,255,255,0.08), transparent 50%),
+          linear-gradient(#101010, #0a0a0a);
+  overflow: hidden;
+}
+
+body {
+  color: var(--text);
+  font-family: "League Gothic", serif;
+}
+
+:root {
+  --page-pad: 18px;
+  --gap: 14px;
+  --border: 2px;
+
+  --surface: #e10000;
+  --surface-2: #c80000;
+  --text: #ffffff;
+  --outline: rgba(0,0,0,0.9);
+
+  --tracks-content-gap: 56px;
+}
+
+body.song-1 { --surface: #e10000; --surface-2: #c80000; }
+body.song-2 { --surface: #2b59ff; --surface-2: #1f45cc; }
+body.song-3 { --surface: #14b86a; --surface-2: #0e8b4f; }
+
+.page{
+  min-height: 100vh;
+  padding: var(--page-pad);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.frame{
+  flex: 1;
+  display: grid;
+  gap: var(--gap);
+
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header"
+    "tracks"
+    "content"
+    "footer";
+}
+
+.card--header { grid-area: header; }
+.tracks       { grid-area: tracks; }
+.card--content{
+  grid-area: content;
+  min-height: 0;
+  overflow: auto;
+  align-self: stretch;
+}
+.card--footer { grid-area: footer; }
+
+.card {
+  background: var(--surface);
+  border: var(--border) solid var(--outline);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  padding: 14px;
+}
+
+.textDisplay {
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+.textDisplay--title {
+  font-size: 96px;
+  line-height: 0.9;
+  text-align: center;
+  font-weight: 900;
+}
+
+.textDisplay--artist {
+  font-size: 36px;
+}
+
+.textDisplay--body {
+  font-size: 28px;
+}
+
+.textDisplay--footer {
+  font-size: 36px;
+  line-height: 1.1;
+  text-align: center;
+  font-weight: 900;
+  transform: scaleX(-1);
+}
+
+.tracks {
+  margin-bottom: var(--tracks-content-gap);
+}
+
+.tracksStack {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  width: 100%;
+}
+
+.trackRow {
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+
+  background: var(--surface);
+  border: var(--border) solid var(--outline);
+  color: var(--text);
+
+  padding: 10px 12px;
+
+  font-family: "League Gothic", serif;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+  margin: 0;
+}
+
+button.trackRow {
+  cursor: pointer;
+}
+
+button.trackRow:hover {
+  filter: brightness(1.06);
+}
+
+button.trackRow.isActive {
+  outline: 3px solid rgba(255,255,255,0.35);
+  outline-offset: 0;
+}
+
+.trackRow--label {
+  pointer-events: none;
+  cursor: default;
+}
+
+.card--content {
+  display: grid;
+  gap: 10px;
+
+  overflow: auto;
+}
+
+@media (max-width: 0px) {
+  :root {
+    --page-pad: 18px;
+    --gap: 14px;
+    --tracks-content-gap: 64px;
+  }
+
+  .frame {
+    min-height: calc(100vh - (2 * var(--page-pad)));
+    grid-template-rows: auto auto 1fr auto;
+  }
+
+  .card--content {
+    align-self: stretch;
+    min-height: 0;
+    overflow: auto;
+  }
+
+  .textDisplay--body{
+    font-size: 10px;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --page-pad: 26px;
+    --gap: 18px;
+    --tracks-content-gap: 64px;
+  }
+
+  .frame{
+    min-height: calc(100vh - var(--page-pad) - var(--page-pad));
+    grid-template-rows: auto auto auto auto;
+  }
+
+  .tracksStack {
+    width: 25%;
+    min-width: 220px;
+    max-width: 320px;
+  }
+
+  .card--content {
+    height: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root { --page-pad: 32px; --gap: 20px; }
+
+  .frame {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+
+    min-height: calc(100vh - var(--page-pad) - var(--page-pad));
+
+    grid-template-columns: 25% 1fr 25%;
+    grid-template-areas:
+      "header header header"
+      "tracks .      content"
+      "footer footer footer";
+
+    align-items: stretch;
+  }
+
+  .tracks {
+    margin-bottom: 0;
+    align-self: start;
+  }
+
+  .card--content {
+    align-self: stretch;
+    min-height: 0;
+    height: auto;
+    overflow: auto;
+  }
+
+  .card--footer {
+    margin-top: var(--gap);
+  }
+}
+
